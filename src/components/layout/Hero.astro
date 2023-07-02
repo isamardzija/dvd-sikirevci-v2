@@ -1,0 +1,19 @@
+---
+import H1 from '../typography/H1.astro'
+import H2 from '../typography/H2.astro'
+import imageHero from '/public/DVD-Sikirevci-hero.jpg'
+---
+
+<section class="bg-red-700 lg:rounded-t-2xl">
+    <div>
+        <img
+            src={imageHero}
+            alt="DVD Sikirevci vozila i zgrada"
+            class="h-[450px] w-full object-cover lg:rounded-t-2xl"
+        />
+    </div>
+    <div class="p-3">
+        <H2 text="Dobrodošli na službene stranice" />
+        <H1 text="DVD Sikirevci" />
+    </div>
+</section>

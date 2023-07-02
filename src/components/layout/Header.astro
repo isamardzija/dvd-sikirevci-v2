@@ -1,0 +1,63 @@
+---
+import header from '../../lib/header'
+import imageLogo from '/public/DVD-Sikirevci-logo.png'
+import imageMenuOpen from '/public/icons/menu-open.svg'
+import imageMenuClose from '/public/icons/menu-close.svg'
+---
+
+<header class="py-6">
+    <nav class="flex flex-col items-stretch justify-between px-6">
+        <div class="flex justify-between">
+            <!-- Logo -->
+            <div class="flex lg:flex">
+                <a href="/" class="sr-only">DVD Sikirevci</a>
+                <img src={imageLogo} alt="Logo DVD-a Sikirevci" class="h-8 w-auto" />
+            </div>
+            <!-- Mobile Dropdown -->
+            <div class="flex lg:hidden">
+                <button type="button" id="toggleMobileMenu" class="h-6 w-6">
+                    <span class="sr-only">Open main menu</span>
+                    <img id="toggleMobileMenuIcon" src={imageMenuOpen} alt="" />
+                </button>
+            </div>
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex lg:gap-x-12">
+                {
+                    header.navbar.map((navItem) => (
+                        <a
+                            class=" text-md font-semibold leading-6 text-gray-900 hover:border-b-2 "
+                            href={navItem.url}
+                        >
+                            {navItem.name}
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div>
+            <div id="mobileMenu" class="hidden flex-col items-end gap-y-6 py-6 lg:hidden">
+                {
+                    header.navbar.map((navItem) => (
+                        <a class="text-md font-semibold leading-6 text-gray-900" href={navItem.url}>
+                            {navItem.name}
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script define:vars={{ imageMenuOpen, imageMenuClose }}>
+const toggleMobileMenu = document.querySelector('#toggleMobileMenu')
+const toggleMobileIcon = document.querySelector('#toggleMobileMenuIcon')
+const mobileMenu = document.querySelector('#mobileMenu')
+toggleMobileMenu.addEventListener('click', () => {
+    mobileMenu.classList.toggle('flex')
+    mobileMenu.classList.toggle('hidden')
+    mobileMenu.classList.contains('flex')
+        ? toggleMobileMenuIcon.setAttribute('src', imageMenuClose)
+        : toggleMobileMenuIcon.setAttribute('src', imageMenuOpen)
+})
+</script>

@@ -1,0 +1,16 @@
+---
+export interface Props {
+    text: string
+    url: string
+    color?: 'light' | 'dark'
+    secondary?: boolean
+}
+
+const { text, url, color = 'light', secondary = false } = Astro.props
+let textColor: string
+color === 'light' ? (textColor = 'text-zinc-100') : (textColor = 'text-zinc-800')
+---
+
+<a href={url}>
+    <button class=`text-2xl underline py-3 font-bold ${textColor}`>{text}</button>
+</a>

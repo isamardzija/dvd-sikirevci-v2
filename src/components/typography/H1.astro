@@ -1,0 +1,12 @@
+---
+export interface Props {
+    text: string
+}
+
+const { text } = Astro.props
+---
+
+<h1
+    set:html={text}
+    class="py-3 text-center font-base text-4xl font-bold text-zinc-100 lg:text-6xl"
+/>
