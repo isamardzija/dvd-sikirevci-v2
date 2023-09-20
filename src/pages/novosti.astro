@@ -17,8 +17,9 @@ import H2 from '../components/typography/H2.astro'
 					.slice(0, 9)
 					.map((post: any) => (
 						<NewsCard
+							slug={post.slug}
 							title={post.title}
-							content={post.content.slice(0, 150) + '...'}
+							content={post.content.slice(0, 66) + '...'}
 							image={post.image.sizes.thumbnail.url}
 							createdAt={post.createdAt}
 						/>

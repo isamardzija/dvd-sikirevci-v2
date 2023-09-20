@@ -4,30 +4,33 @@ import Paragraph from '../typography/Paragraph.astro'
 import Span from '../typography/Span.astro'
 
 export interface Props {
-    title: string
-    content: string
-    image: string
-    createdAt: string
+	title: string
+	content: string
+	image: string
+	createdAt: string
+	slug: string
 }
 
-const { title, content, image, createdAt } = Astro.props
+const { title, content, image, createdAt, slug } = Astro.props
 const gradient =
-    'linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 48%, rgba(0, 0, 0, 0.8) 100%)'
+	'linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 48%, rgba(0, 0, 0, 0.8) 100%)'
 const time = new Date(createdAt).toLocaleDateString('hr-HR', {
-    dateStyle: 'full'
+	dateStyle: 'full'
 })
 ---
 
 <article
-    style={{ backgroundImage: `${gradient}, url("${image}")` }}
-    class=`flex aspect-square h-[300px] w-full flex-col justify-end rounded-2xl bg-cover bg-center`
+	style={{ backgroundImage: `${gradient}, url("${image}")` }}
+	class=`flex aspect-square h-[300px] w-full flex-col justify-end rounded-2xl bg-cover bg-center`
 >
-    <div class="p-3">
-        <H3 text={title} />
-        <Paragraph text={content} />
-    </div>
-    <div class="flex justify-end gap-3 p-2">
-        <Span text="Josip Živić" />
-        <Span text={time} />
-    </div>
+	<div class="p-3">
+		<a href=`/novosti/${slug}`>
+			<H3 text={title} />
+		</a>
+		<Paragraph text={content} />
+	</div>
+	<div class="flex justify-end gap-3 p-2">
+		<Span text="Josip Živić" />
+		<Span text={time} />
+	</div>
 </article>

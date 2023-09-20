@@ -1,8 +1,8 @@
 ---
 export interface Props {
-    text?: string
-    color?: 'light' | 'dark'
-    align?: 'left' | 'right' | 'center'
+	text?: string
+	color?: 'light' | 'dark'
+	align?: 'left' | 'right' | 'center'
 }
 
 const { text, color = 'light', align = 'left' } = Astro.props
@@ -10,4 +10,4 @@ let textColor: string
 color === 'light' ? (textColor = 'text-zinc-100') : (textColor = 'text-zinc-800')
 ---
 
-<p class=`font-base text-md lg:text-lg text-${align} ${textColor}`><slot /></p>
+<p class=`font-base text-md lg:text-lg text-${align} ${textColor}`>{text}</p>

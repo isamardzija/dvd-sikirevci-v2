@@ -1,0 +1,35 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+export async function getStaticPaths() {
+	let data = await fetch('https://cms.dvdsikirevci.hr/api/posts')
+	const posts = await data.json()
+
+	return posts.docs.map((post: any) => {
+		return {
+			params: { slug: post.slug },
+			props: { title: post.title, content: post.content, src: post.image.sizes.tablet.url }
+		}
+	})
+}
+
+import H2 from '../../components/typography/H2.astro'
+import Paragraph from '../../components/typography/Paragraph.astro'
+import { Image } from 'astro:assets'
+
+const { title, content, src } = Astro.props
+---
+
+<Layout title={title}>
+	<article class="min-h-[768px] px-3 py-12">
+		<H2 color="dark" text={title} />
+		<Image
+			src={src}
+			alt=""
+			height="768"
+			width="1024"
+			class="float-left w-full max-w-[720px] pr-6 lg:w-1/2"
+		/>
+		<Paragraph color="dark" text={content} />
+	</article>
+</Layout>

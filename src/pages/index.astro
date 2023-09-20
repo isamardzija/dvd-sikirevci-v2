@@ -19,8 +19,9 @@ import CTAButton from '../components/typography/CTAButton.astro'
 					.slice(0, 9)
 					.map((post: any) => (
 						<NewsCard
+							slug={post.slug}
 							title={post.title}
-							content={post.content.slice(0, 150) + '...'}
+							content={post.content.slice(0, 66) + '...'}
 							image={post.image.sizes.thumbnail.url}
 							createdAt={post.createdAt}
 						/>
@@ -31,15 +32,10 @@ import CTAButton from '../components/typography/CTAButton.astro'
 	<div class="bg-zinc-800 p-12">
 		<div class="border-b-2 border-b-red-700">
 			<H2 text="O DVD Sikirevci" color="light" align="left" />
-			<Paragraph color="light">
-				Na temeljima humanosti, solidarnosti i dragovoljnosti mještana sela Sikirevci te uz posebne
-				zasluge učitelja gospodina Ljubomira Pleše, dana 08.rujna. 1928. godine osnovano je
-				Dobrovoljno vatrogasno društvo Sikirevci. Nedugo nakon osnivanja članovi Dobrovoljnog
-				vatrogasnog društva Sikirevci imaju i svoju prvu vatrogasnu požarnu intervenciju, točnije
-				dana 11.rujna.1928. godine. Zapaljena je kamara slame kod Marijana Marković, ali su okolne
-				zgrade spašene. Članovi društva iako neiskusni u požarnim okolnostima iskazali su veliku
-				spremnost i volju u gašenju požara.
-			</Paragraph>
+			<Paragraph
+				color="light"
+				text="Na temeljima humanosti, solidarnosti i dragovoljnosti mještana sela Sikirevci te uz posebne zasluge učitelja gospodina Ljubomira Pleše, dana 08.rujna. 1928. godine osnovano je Dobrovoljno vatrogasno društvo Sikirevci. Nedugo nakon osnivanja članovi Dobrovoljnog vatrogasnog društva Sikirevci imaju i svoju prvu vatrogasnu požarnu intervenciju, točnije dana 11.rujna.1928. godine. Zapaljena je kamara slame kod Marijana Marković, ali su okolne zgrade spašene. Članovi društva iako neiskusni u požarnim okolnostima iskazali su veliku spremnost i volju u gašenju požara."
+			/>
 			<CTAButton text="Pročitaj više" url="/o-nama" />
 		</div>
 	</div>
