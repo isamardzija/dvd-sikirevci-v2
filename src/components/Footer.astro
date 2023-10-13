@@ -1,0 +1,28 @@
+---
+import logo from "../assets/images/DVD-Sikirevci-logo.png";
+import { Image } from "astro:assets";
+---
+
+<div class="bg-zinc-800 p-12 flex justify-between">
+  <div>
+    <Image src={logo} alt="" class="w-12 xl:w-20" />
+    <p class="font-bold text-white">DVD Sikirevci</p>
+  </div>
+  <div class="flex gap-8">
+    <div class="flex flex-col gap-2 text-white">
+      <h4 class="text-2xl font-bold py-2">DVD Sikirevci</h4>
+      <a class="" href="/">Početna</a>
+      <a href="/dvd/o-nama">O DVD-u</a>
+      <a href="/dvd/novosti">Novosti</a>
+      <a href="/dvd/povijest">Povijest DVD-a</a>
+      <a href="/dvd/dokumenti">Dokumenti</a>
+      <a href="/kontakt">Kontakt</a>
+    </div>
+    <div class="flex flex-col gap-2 text-white">
+      <h4 class="text-2xl font-bold py-2">VZO Sikirevci</h4>
+      <a href="/vzo/novosti">Novosti</a>
+      <a href="/vzo/dokumenti">Dokumenti</a>
+      <a href="/kontakt">Kontakt</a>
+    </div>
+  </div>
+</div>

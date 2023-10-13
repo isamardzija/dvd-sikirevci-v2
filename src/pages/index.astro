@@ -1,7 +1,16 @@
 ---
+import { Image } from "astro:assets";
 import PageLayout from "../layouts/PageLayout.astro";
 import data from "../lib/data";
 import image from "/src/assets/images/dvd-hero.png";
+import imageDocs from "/src/assets/images/dvd-dokumentacija.png";
+import imageAbout from "/src/assets/images/o-nama.png";
+import imageHistory from "/src/assets/images/dvd-povijest.png";
+
+let fetchData = await fetch(
+  "https://cms.dvdsikirevci.hr/api/posts?where[type][equals]=dvd"
+);
+let posts = await fetchData.json();
 ---
 
 <PageLayout
@@ -10,4 +19,77 @@ import image from "/src/assets/images/dvd-hero.png";
   image={image}
   alt={data.pages.index.alt}
   h1={data.pages.index.h1}
-/>
+>
+  <div class="flex flex-col gap-4 py-12 px-4">
+    <h2
+      class="text-dark text-3xl xl:text-4xl font-bold py-4 text-left border-b-2 border-b-brand"
+    >
+      Najnovije vijesti
+    </h2>
+    <div class="grid gap-4 xl:grid-cols-3 px-4 xl:px-0">
+      {
+        posts.docs.slice(0, 3).map((post) => (
+          <article class="bg-gray-200">
+            <img src={post.image.sizes.tablet.url} alt="" />
+            <h3 class="text-dark text-2xl xl:text-3xl text-left px-4 py-2">
+              {post.title}
+            </h3>
+            <p class="text-xl text-dark py-2 px-4 pb-8">
+              {post.content.slice(0, 400)}...
+              <a
+                href={`/dvd/novosti/${post.slug}`}
+                class="underline ml-2 inline text-brand text-xl"
+              >
+                Pročitaj više
+              </a>
+            </p>
+          </article>
+        ))
+      }
+    </div>
+    <a
+      href="/dvd/novosti"
+      class="text-white bg-brand rounded-xl text-3xl xl:text-4xl px-4 py-3 self-end"
+      >Pogledaj sve vijesti</a
+    >
+  </div>
+  <div class="flex flex-col gap-4 py-12 px-4">
+    <h2
+      class="text-dark text-3xl xl:text-4xl font-bold py-4 text-left border-b-2 border-b-brand"
+    >
+      O DVD Sikirevci
+    </h2>
+    <div class="grid xl:grid-cols-3 gap-4">
+      <div class="bg-gray-200 text-dark text-lg rounded-md flex flex-col gap-2">
+        <Image src={imageAbout} alt="" />
+        <a
+          href="/dvd/o-nama"
+          class="font-bold text-brand text-2xl underline px-4">O nama</a
+        >
+        <p class="px-4">
+          Informacije o ustrojstvu, članovima i voznom parku DVD-a Sikirevci.
+        </p>
+      </div>
+      <div class="bg-gray-200 text-dark text-lg rounded-md flex flex-col gap-2">
+        <Image src={imageHistory} alt="" />
+
+        <a
+          href="/dvd/povijest"
+          class="font-bold underline text-brand text-2xl px-4">Povijest</a
+        >
+        <p class="px-4">Upoznajte se sa bogatom povješću DVD-a Sikirevci.</p>
+      </div>
+      <div class="bg-gray-200 text-dark text-lg rounded-md flex flex-col gap-2">
+        <Image src={imageDocs} alt="" />
+
+        <a
+          href="/dvd/povijest"
+          class="font-bold underline text-2xl text-brand px-4">Dokumenti</a
+        >
+        <p class="px-4">
+          Pogledajte ili preuzmite službenu dokumentaciju DVD-a Sikirevci.
+        </p>
+      </div>
+    </div>
+  </div>
+</PageLayout>
