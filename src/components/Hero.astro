@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+export interface Props {
+  image: ImageMetadata;
+  alt: string;
+  h1: string;
+}
+
+const { image, alt, h1 } = Astro.props;
+---
+
+<div class="bg-brand xl:rounded-xl">
+  <Image
+    src={image}
+    alt={alt}
+    width="1280"
+    height="671"
+    class="xl:rounded-t-xl w-full object-bottom object-cover max-h-[450px]"
+  />
+  <h1 class="text-white text-5xl xl:text-6xl font-bold text-center py-8">
+    {h1}
+  </h1>
+</div>

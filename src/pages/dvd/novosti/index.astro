@@ -1,0 +1,32 @@
+---
+import PageLayout from "../../../layouts/PageLayout.astro";
+import data from "../../../lib/data";
+import image from "/src/assets/images/dvd-novosti.png";
+
+let fetchData = await fetch("https://cms.dvdsikirevci.hr/api/posts?where[type][equals]=dvd");
+let posts = await fetchData.json();
+---
+
+<PageLayout
+  metaDesc={data.meta.descriptions.dvd.news}
+  title={data.meta.titles.dvd.news}
+  image={image}
+  alt={data.pages.dvd.news.alt}
+  h1={data.pages.dvd.news.h1}
+>
+<div class="px-4 py-12 space-y-12">
+    
+    {posts.docs.slice(0,9).map((post) => (
+        <div class="flex flex-col bg-gray-100 rounded">
+                <h2 class="text-dark text-3xl xl:text-4xl p-4 font-bold basis-1/2">{post.title}</h2>
+                <div class="flex flex-col xl:flex-row">
+                    <img class="w-96 max-h-[450px] object-contain" src={post.image.sizes.tablet.url} alt="" />
+                    <div class="p-4">
+                        <p class="inline text-xl xl:text-2xl text-dark">{post.content.slice(0,400)}...</p>
+                        <a href={`/dvd/novosti/${post.slug}`} class="underline ml-2 inline text-brand text-xl xl:text-2xl ">Pročitaj više...</a>
+                    </div>
+                </div>
+        </div>
+        ))}
+</div>
+</PageLayout>

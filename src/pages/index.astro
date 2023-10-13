@@ -1,0 +1,13 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import data from "../lib/data";
+import image from "/src/assets/images/dvd-hero.png";
+---
+
+<PageLayout
+  metaDesc={data.meta.descriptions.index}
+  title={data.meta.titles.index}
+  image={image}
+  alt={data.pages.index.alt}
+  h1={data.pages.index.h1}
+/>

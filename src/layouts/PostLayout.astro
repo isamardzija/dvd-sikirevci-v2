@@ -1,0 +1,33 @@
+---
+import { getImage } from "astro:assets";
+import Header from "../components/Header.astro";
+import PostHero from "../components/PostHero.astro";
+export interface Props {
+  image: ImageMetadata;
+  alt: string;
+  h1: string;
+  metaDesc: string;
+  title: string;
+}
+const { metaDesc, title, h1, image, alt } = Astro.props;
+import og from "../assets/images/og.png";
+const ogImage = await getImage({ src: og });
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:description" content={metaDesc} />
+    <meta property="og:image" content={ogImage.src} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="max-w-7xl mx-auto">
+      <Header />
+      <PostHero h1={h1} image={image} alt={alt} />
+      <slot />
+    </div>
+  </body>
+</html>

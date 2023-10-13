@@ -1,0 +1,30 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import data from "../../lib/data";
+import image from "/src/assets/images/vzo-dokumentacija.png";
+
+let fetchData = await fetch("https://cms.dvdsikirevci.hr/api/attachments");
+let attachments = await fetchData.json();
+---
+
+<PageLayout
+  metaDesc={data.meta.descriptions.vzo.documents}
+  title={data.meta.titles.vzo.documents}
+  image={image}
+  alt={data.pages.vzo.documents.alt}
+  h1={data.pages.vzo.documents.h1}
+>
+<div class="flex flex-col gap-4 py-12 px-4">
+  <p class="text-xl xl:text-2xl text-dark py-4 space-y-8">
+    Ovdje možete pristupiti važnim dokumentima uz koje temeljimo rad Vatrogasne zajednice općine Sikirevci.</p>
+  {
+    attachments.docs.map((attachment) => (
+      <div class="p-4 flex flex-col border border-gray-400 rounded-sm">
+        <a class="text-brand font-bold text-lg underline" target="_blank" href={attachment.url}>
+          {attachment.filename}
+        </a>
+        <span class="text-lg">Datum objave: {new Date(attachment.updatedAt).toLocaleDateString('hr-HR')}</span>
+      </div>
+    ))
+  }
+</div>

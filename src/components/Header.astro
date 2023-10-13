@@ -1,0 +1,116 @@
+---
+import logo from "../assets/images/DVD-Sikirevci-logo.png";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon";
+import data from "../lib/data";
+const menuItems = data.header.menu;
+---
+
+<header class="flex justify-between p-4 w-full relative">
+  <Image src={logo} alt="" class="w-12 xl:w-20" />
+  <Icon id="menuOpen" name="mdi:menu" class="lg:hidden w-8 cursor-pointer" />
+  <Icon
+    id="menuClose"
+    name="mdi:close"
+    class="hidden lg:hidden w-8 cursor-pointer"
+  />
+  <div
+    id="menu"
+    class="bg-white items-center py-8 xl:py-0 gap-8 hidden lg:flex flex-col absolute inset-x-0 top-16 lg:static lg:flex-row animate-dropdown origin-top"
+  >
+    {
+      menuItems.map((menuItem) => {
+        if (menuItem.type === "url") {
+          return (
+            <div class="hover:underline underline-offset-4">
+              <a href={menuItem.url} class="font-semibold">
+                {menuItem.name}
+              </a>
+            </div>
+          );
+        } else if (menuItem.type === "submenu") {
+          return (
+            <div class="relative submenu" data-opened="false">
+              <div class="justify-center flex gap-1 items-center cursor-pointer">
+                <span class="font-semibold">{menuItem.name}</span>
+                <Icon name="mdi:chevron-down" class="w-4 aspect-square" />
+              </div>
+              <div class="bg-white animate-dropdown origin-top hidden flex-col p-6 gap-4 min-w-max ml-20 lg:ml-0 lg:border lg:absolute top-10 rounded ">
+                {menuItem.submenu?.map((submenuItem) => (
+                  <a href={submenuItem.url}>{submenuItem.name}</a>
+                ))}
+              </div>
+            </div>
+          );
+        } else if (menuItem.type === "cta") {
+          return (
+            <button class="bg-brand p-2 rounded-xl font-bold">
+              <a class="text-white" href={menuItem.url}>
+                {menuItem.name}
+              </a>
+            </button>
+          );
+        }
+      })
+    }
+  </div>
+</header>
+
+<script>
+  const menuOpen = document.querySelector("#menuOpen");
+  const menuClose = document.querySelector("#menuClose");
+  const submenus = document.querySelectorAll(".submenu");
+  const menu = document.querySelector("#menu");
+
+  menuOpen?.addEventListener("click", () => {
+    menuOpen.classList.add("hidden");
+    menuClose?.classList.remove("hidden");
+  });
+  menuClose?.addEventListener("click", () => {
+    menuClose.classList.add("hidden");
+    menuOpen?.classList.remove("hidden");
+  });
+
+  menuOpen?.addEventListener("click", () => {
+    menu?.classList.remove("hidden");
+    menu?.classList.add("flex");
+  });
+
+  menuClose?.addEventListener("click", () => {
+    menu?.classList.remove("flex");
+    menu?.classList.add("hidden");
+  });
+
+  submenus.forEach((submenu, i) => {
+    submenu.addEventListener("click", () => {
+      const siblings = [...submenu.parentElement?.children].filter(
+        (sibling) => sibling != submenu
+      );
+      siblings.forEach((sibling) => {
+        if (
+          sibling.classList.contains("submenu") &&
+          window.screen.width > 1280
+        ) {
+          sibling.children[1].classList.remove("flex");
+          sibling.children[1].classList.add("hidden");
+          sibling.children[0].children[1].classList.remove("rotate-180");
+        }
+      });
+
+      if (submenu.children[1].classList.contains("hidden")) {
+        submenu.children[1].classList.remove("hidden");
+        submenu.children[1].classList.add("flex");
+        submenu.children[0].children[1].classList.add("rotate-180");
+      } else if (submenu.children[1].classList.contains("flex")) {
+        submenu.children[1].classList.remove("flex");
+        submenu.children[1].classList.add("hidden");
+        submenu.children[0].children[1].classList.remove("rotate-180");
+      }
+    });
+    submenu.children[1].addEventListener("mouseleave", () => {
+      submenu.children[1].classList.remove("flex");
+      submenu.children[1].classList.add("hidden");
+      submenu.children[0].children[1].classList.remove("rotate-180");
+    });
+  });
+</script>

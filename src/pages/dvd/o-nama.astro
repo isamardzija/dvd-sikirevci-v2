@@ -1,0 +1,57 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import data from "../../lib/data";
+import image from "/src/assets/images/o-nama.png";
+import Gallery from "../../components/Gallery.astro"
+---
+
+<PageLayout
+  metaDesc={data.meta.descriptions.dvd.about}
+  title={data.meta.titles.dvd.about}
+  image={image}
+  alt={data.pages.dvd.about.alt}
+  h1={data.pages.dvd.about.h1}
+>
+  <article class="px-4 py-8 space-y-12">
+    <div>
+      <h2 class="text-dark text-3xl xl:text-4xl font-bold py-4 text-left">
+        Operativa
+      </h2>
+      <h3 class="text-dark text-2xl xl:text-3xl font-bold py-4 text-left">
+        Vozni park DVD-a Sikirevci
+      </h3>
+      <Gallery />
+      <h3 class="text-dark text-2xl xl:text-3xl font-bold py-4 text-left">
+        25 operativaca
+      </h3>
+    </div>
+    <div>
+      <h2 class="text-dark text-3xl xl:text-4xl font-bold py-4 text-left">
+        Seniori
+      </h2>
+      <p class="text-xl xl:text-2xl text-dark py-4">
+        Seniorsko odjeljenje natjecatelja sastoji se od ženskih i muških ekipa.
+        U "A selekciju" pripadaju članovi koji imaju između 16 i 30 godina, a u
+        "B selekciju" oni članovi koji su stariji od 30 godina. Sudjeluju na
+        velikom broju natjecanja po cijeloj državi, uključujući županijska i
+        državna natjecanja. Ekipe se najčešće sastoje od operativnih članova
+        koji ove vježbe ujedno koriste kao i pripreme za moguće intervencije.
+      </p>
+      <h2 class="text-dark text-3xl xl:text-4xl font-bold py-4 text-left">
+        Podmladak
+      </h2>
+      <h3 class="text-dark text-2xl xl:text-3xl font-bold py-4 text-left">
+        Djeca
+      </h3>
+      <p class="text-xl xl:text-2xl text-dark py-4">
+        Odjeljenje djece u DVD-u Sikirevci okuplja najmlađe članove u dobi od 6
+        do 12 godina života. Zahvaljujući rednovnim treninzima i odlascima na
+        natjecanja po okolnim mjestima, djeca su najtrofejnije odjeljenje unutar
+        DVD-a. Odjeljenje broji više od 30 članova. Mladež Mladež DVD-a
+        Sikirevci okuplja članove DVD-a Sikirevci od 12 do 16 godina žviota.
+        Svojim napornim radom i treninzima predstavljaju naše društvo po cijeloj
+        Slavoniji, ali i šire! Odjeljenje broji više od 30 članova.
+      </p>
+    </div>
+  </article>
+</PageLayout>

@@ -1,0 +1,13 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import data from "../../lib/data";
+import image from "/src/assets/images/vzo-novosti.png";
+---
+
+<PageLayout
+  metaDesc={data.meta.descriptions.vzo.news}
+  title={data.meta.titles.vzo.news}
+  image={image}
+  alt={data.pages.vzo.news.alt}
+  h1={data.pages.vzo.news.h1}
+/>

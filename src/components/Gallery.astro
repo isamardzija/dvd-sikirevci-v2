@@ -1,0 +1,214 @@
+---
+import Icon from "astro-icon";
+import { getImage, Image } from "astro:assets";
+
+import imageOne from "/src/assets/images/vehicles/images/Steyr-13S26.jpg";
+import imageTwo from "/src/assets/images/vehicles/images/Steyr-Puch-690170.jpg";
+import imageThree from "/src/assets/images/vehicles/images/WV.jpg";
+
+import thumbnailOne from "/src/assets/images/vehicles/thumbnails/Steyr-13S26.png";
+import thumbnailTwo from "/src/assets/images/vehicles/thumbnails/Steyr-Puch-690170.png";
+import thumbnailThree from "/src/assets/images/vehicles/thumbnails/VW.png";
+
+
+
+const images = [imageOne, imageTwo, imageThree];
+const thumbnails = [
+  thumbnailOne,
+  thumbnailTwo,
+  thumbnailThree];
+
+const optimizedImages = await Promise.all(
+  images.map(async (i) => {
+    const image = await getImage({ src: i });
+    return image;
+  }),
+);
+
+const optimizedThumbnails = await Promise.all(
+  thumbnails.map(async (i) => {
+    const thumbnail = await getImage({ src: i });
+    return thumbnail;
+  }),
+);
+
+const fpThumbnails = [
+  optimizedThumbnails[0],
+  optimizedThumbnails[1],
+  optimizedThumbnails[2],
+];
+---
+
+<section class="flex flex-col gap-9">
+  <div
+    class="relative w-full grid place-items-center px-4 mx-auto gap-9"
+    id="references">
+
+    <div
+      class="hidden grid-rows-3 md:grid-rows-none md:grid-cols-3 gap-4 py-8 xl:grid"
+      id="thumbsContainer">
+      {
+        fpThumbnails.map((thumb, i) => (
+          <img
+            src={thumb.src}
+            alt=""
+            class="thumb rounded-xl cursor-pointer border border-gray"
+            data-id={i}
+            width={thumb.rawOptions.width}
+            height={thumb.rawOptions.height}
+          />
+        ))
+      }
+    </div>
+    <div id="mobileThumb" class="relative p-10 xl:hidden ">
+      <img src={optimizedThumbnails[0].src} alt="" data-id="0" />
+      <div class="flex justify-between absolute inset-0">
+        <Icon
+          name="mdi:chevron-left"
+          class="w-12 text-darkPrimary cursor-pointer"
+          id="mobileLeft"
+        />
+        <Icon
+          name="mdi:chevron-right"
+          class="w-12 text-darkPrimary cursor-pointer"
+          id="mobileRight"
+        />
+      </div>
+    </div>
+    <div
+      class="bg-white w-[100vw] h-[100dvh] py-4 px-2 hidden absolute inset-y-0 shadow-lg"
+      id="fullscreenView">
+      <div class="relative">
+        <div
+          class="absolute flex flex-col w-full items-end justify-between h-1/2">
+          <div class="">
+            <button id="close">
+              <Icon name="mdi:close" class="w-12 text-darkPrimary" />
+            </button>
+          </div>
+          <div class="flex justify-between w-full">
+            <button id="prev">
+              <Icon name="mdi:chevron-left" class="w-12 text-darkPrimary" />
+            </button>
+            <button id="next">
+              <Icon name="mdi:chevron-right" class="w-12 text-darkPrimary" />
+            </button>
+          </div>
+        </div>
+        <div
+          id="activeImage"
+          class="mx-auto bg-white h-[85dvh] bg-center bg-contain bg-no-repeat">
+        </div>
+      </div>
+      <div class="grid grid-flow-col p-4 max-w-2xl mx-auto">
+        {
+          optimizedThumbnails.map((thumb, i) => (
+            <img
+              src={thumb.src}
+              class="rounded-xl cursor-pointer fullscreenThumb opacity-50 hover:opacity-75 max-h-24"
+              data-id={i}
+              width={thumb.rawOptions.width}
+              height={thumb.rawOptions.height}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ optimizedImages }}>
+const fullscreenView = document.querySelector("#fullscreenView");
+const thumbsContainer = document.querySelector("#thumbsContainer");
+const fullscreenThumbs = document.querySelectorAll(".fullscreenThumb");
+const thumbs = document.querySelectorAll(".thumb");
+const prev = document.querySelector("#prev");
+const mobileLeft = document.querySelector("#mobileLeft");
+const mobileRight = document.querySelector("#mobileRight");
+const next = document.querySelector("#next");
+const close = document.querySelector("#close");
+const activeImage = document.querySelector("#activeImage");
+let touchStartX = 0;
+let touchEndX = 0;
+
+const openFullscreenView = async () => {
+  fullscreenView.classList.remove("hidden");
+  document.addEventListener("keyup", keyboardNav);
+
+  setTimeout(() => {
+    fullscreenView.scrollIntoView();
+  }, 0);
+  document.body.classList.add("overflow-hidden");
+};
+
+const closeFullscreenView = () => {
+  document.removeEventListener("keyup", keyboardNav);
+  fullscreenView.classList.add("hidden");
+  document.body.classList.remove("overflow-hidden");
+};
+
+const changeActiveImage = (i) => {
+  activeImage.dataset.id &&
+    fullscreenThumbs[Number(activeImage.dataset.id)].classList.add(
+      "opacity-50",
+    );
+  activeImage.dataset.id = Number(i);
+  activeImage.style.backgroundImage = `url(${optimizedImages[i].src})`;
+  fullscreenThumbs[i].classList.remove("opacity-50");
+};
+
+function keyboardNav(e) {
+  e.key === "ArrowRight" && next.click();
+  e.key === "ArrowLeft" && prev.click();
+}
+
+fullscreenView.addEventListener("touchstart", (e) => {
+  touchStartX = e.touches[0].clientX;
+});
+
+fullscreenView.addEventListener("touchmove", (e) => {
+  touchEndX = e.touches[0].clientX;
+});
+
+fullscreenView.addEventListener("touchend", () => {
+  touchEndX - touchStartX > 0 && prev.click();
+  touchEndX - touchStartX < 0 && next.click();
+});
+
+thumbs.forEach((thumb, i) => {
+  thumb.addEventListener("click", () => {
+    openFullscreenView();
+    changeActiveImage(i);
+  });
+});
+
+fullscreenThumbs.forEach((fullscreenThumb, i) => {
+  fullscreenThumb.addEventListener("click", () => {
+    openFullscreenView();
+    changeActiveImage(i);
+  });
+});
+
+prev.addEventListener("click", () => {
+  activeImage.dataset.id > 0
+    ? changeActiveImage(Number(activeImage.dataset.id) - 1)
+    : changeActiveImage(optimizedImages.length - 1);
+});
+next.addEventListener("click", () => {
+  activeImage.dataset.id < optimizedImages.length - 1
+    ? changeActiveImage(Number(activeImage.dataset.id) + 1)
+    : changeActiveImage(0);
+});
+
+mobileRight.addEventListener("click", () => {
+  openFullscreenView();
+  changeActiveImage(1);
+});
+
+mobileLeft.addEventListener("click", () => {
+  openFullscreenView();
+  changeActiveImage(optimizedImages.length - 1);
+});
+
+close.addEventListener("click", closeFullscreenView);
+</script>
