@@ -1,12 +1,25 @@
 ---
 import logo from "../assets/images/DVD-Sikirevci-logo.png";
 import { Image } from "astro:assets";
+import Icon from "astro-icon";
 ---
 
-<div class="bg-zinc-800 p-12 flex justify-between">
-  <div>
-    <Image src={logo} alt="" class="w-12 xl:w-20" />
-    <p class="font-bold text-white">DVD Sikirevci</p>
+<div
+  class="bg-zinc-800 p-12 flex flex-col xl:flex-row justify-between relative"
+>
+  <div class="flex flex-col xl:justify-between">
+    <div>
+      <Image src={logo} alt="" class="w-12 xl:w-20" />
+      <p class="font-bold text-white">DVD Sikirevci</p>
+    </div>
+
+    <a
+      href="https://cms.dvdsikirevci.hr"
+      target="_blank"
+      class="absolute bottom-0 right-6"
+    >
+      <Icon name="mdi:login-variant" class="w-6 text-gray-600 my-2" />
+    </a>
   </div>
   <div class="flex gap-8">
     <div class="flex flex-col gap-2 text-white">
@@ -16,13 +29,13 @@ import { Image } from "astro:assets";
       <a href="/dvd/novosti">Novosti</a>
       <a href="/dvd/povijest">Povijest DVD-a</a>
       <a href="/dvd/dokumenti">Dokumenti</a>
-      <a href="/kontakt">Kontakt</a>
+      <a href="/dvd/kontakt">Kontakt</a>
     </div>
     <div class="flex flex-col gap-2 text-white">
       <h4 class="text-2xl font-bold py-2">VZO Sikirevci</h4>
       <a href="/vzo/novosti">Novosti</a>
       <a href="/vzo/dokumenti">Dokumenti</a>
-      <a href="/kontakt">Kontakt</a>
+      <a href="/vzo/kontakt">Kontakt</a>
     </div>
   </div>
 </div>

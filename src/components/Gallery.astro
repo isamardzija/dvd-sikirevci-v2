@@ -3,33 +3,28 @@ import Icon from "astro-icon";
 import { getImage, Image } from "astro:assets";
 
 import imageOne from "/src/assets/images/vehicles/images/Steyr-13S26.jpg";
-import imageTwo from "/src/assets/images/vehicles/images/Steyr-Puch-690170.jpg";
+import imageTwo from "/src/assets/images/vehicles/images/Mercedes-Benz-L508-D35.jpg";
 import imageThree from "/src/assets/images/vehicles/images/WV.jpg";
 
 import thumbnailOne from "/src/assets/images/vehicles/thumbnails/Steyr-13S26.png";
-import thumbnailTwo from "/src/assets/images/vehicles/thumbnails/Steyr-Puch-690170.png";
+import thumbnailTwo from "/src/assets/images/vehicles/thumbnails/Mercedes-Benz-L508-D35.png";
 import thumbnailThree from "/src/assets/images/vehicles/thumbnails/VW.png";
 
-
-
 const images = [imageOne, imageTwo, imageThree];
-const thumbnails = [
-  thumbnailOne,
-  thumbnailTwo,
-  thumbnailThree];
+const thumbnails = [thumbnailOne, thumbnailTwo, thumbnailThree];
 
 const optimizedImages = await Promise.all(
   images.map(async (i) => {
     const image = await getImage({ src: i });
     return image;
-  }),
+  })
 );
 
 const optimizedThumbnails = await Promise.all(
   thumbnails.map(async (i) => {
     const thumbnail = await getImage({ src: i });
     return thumbnail;
-  }),
+  })
 );
 
 const fpThumbnails = [
@@ -37,30 +32,40 @@ const fpThumbnails = [
   optimizedThumbnails[1],
   optimizedThumbnails[2],
 ];
+
+const vehicleInfo = [
+  "Steyr TLFA 2000",
+  "Mercedes-Benz l508 D/35",
+  "Volkswagen 2.0 TDI",
+];
 ---
 
 <section class="flex flex-col gap-9">
   <div
     class="relative w-full grid place-items-center px-4 mx-auto gap-9"
-    id="references">
-
+    id="references"
+  >
     <div
       class="hidden grid-rows-3 md:grid-rows-none md:grid-cols-3 gap-4 py-8 xl:grid"
-      id="thumbsContainer">
+      id="thumbsContainer"
+    >
       {
         fpThumbnails.map((thumb, i) => (
-          <img
-            src={thumb.src}
-            alt=""
-            class="thumb rounded-xl cursor-pointer border border-gray"
-            data-id={i}
-            width={thumb.rawOptions.width}
-            height={thumb.rawOptions.height}
-          />
+          <div class="">
+            <img
+              src={thumb.src}
+              alt=""
+              class="thumb rounded-xl cursor-pointer border border-gray"
+              data-id={i}
+              width={thumb.rawOptions.width}
+              height={thumb.rawOptions.height}
+            />
+            <p class="text-2xl py-2">{vehicleInfo[i]}</p>
+          </div>
         ))
       }
     </div>
-    <div id="mobileThumb" class="relative p-10 xl:hidden ">
+    <div id="mobileThumb" class="relative p-10 xl:hidden">
       <img src={optimizedThumbnails[0].src} alt="" data-id="0" />
       <div class="flex justify-between absolute inset-0">
         <Icon
@@ -77,10 +82,12 @@ const fpThumbnails = [
     </div>
     <div
       class="bg-white w-[100vw] h-[100dvh] py-4 px-2 hidden absolute inset-y-0 shadow-lg"
-      id="fullscreenView">
+      id="fullscreenView"
+    >
       <div class="relative">
         <div
-          class="absolute flex flex-col w-full items-end justify-between h-1/2">
+          class="absolute flex flex-col w-full items-end justify-between h-1/2"
+        >
           <div class="">
             <button id="close">
               <Icon name="mdi:close" class="w-12 text-darkPrimary" />
@@ -97,7 +104,8 @@ const fpThumbnails = [
         </div>
         <div
           id="activeImage"
-          class="mx-auto bg-white h-[85dvh] bg-center bg-contain bg-no-repeat">
+          class="mx-auto bg-white h-[85dvh] bg-center bg-contain bg-no-repeat"
+        >
         </div>
       </div>
       <div class="grid grid-flow-col p-4 max-w-2xl mx-auto">
@@ -150,7 +158,7 @@ const closeFullscreenView = () => {
 const changeActiveImage = (i) => {
   activeImage.dataset.id &&
     fullscreenThumbs[Number(activeImage.dataset.id)].classList.add(
-      "opacity-50",
+      "opacity-50"
     );
   activeImage.dataset.id = Number(i);
   activeImage.style.backgroundImage = `url(${optimizedImages[i].src})`;

@@ -11,11 +11,16 @@ export default {
         documents: "Arhiva službene dokumentacije DVD-a Sikirevci",
       },
       vzo: {
+        about:
+          "Najbitnije informacije o Vatrogasnoj zajednici općine Sikirevci",
         news: "Najnovije vijesti i događanja vezana za VZO Sikirevci",
         documents:
           "Arhiva službene dokumentacije Vatrogasne zajednice općine Sikirevci",
       },
-      contact: "Kontakt podaci ključnih osoba iz DVD-a Sikirevci",
+      contact: {
+        dvd: "Podaci za kontaktiranje DVD-a Sikirevci",
+        vzo: "Podaci za kontaktiranje VZO Sikirevci",
+      },
     },
     titles: {
       index: "Početna | DVD Sikirevci i VZO Sikirevci",
@@ -26,10 +31,14 @@ export default {
         documents: "Dokumenti | DVD Sikirevci",
       },
       vzo: {
+        about: "O nama | VZO Sikirevci",
         news: "Novosti | VZO Sikirevci",
         documents: "Dokumenti | VZO Sikirevci",
       },
-      contact: "Kontakt | DVD i VZO Sikirevci",
+      contact: {
+        dvd: "Kontakt | DVD Sikirevci",
+        vzo: "Kontakt | VZO Sikirevci",
+      },
     },
   },
   header: {
@@ -49,11 +58,19 @@ export default {
         name: "VZO",
         type: "submenu",
         submenu: [
+          { name: "O nama", url: "/vzo/o-nama" },
           { name: "Novosti", url: "/vzo/novosti" },
           { name: "Dokumenti", url: "/vzo/dokumenti" },
         ],
       },
-      { name: "Kontakt", type: "cta", url: "/kontakt" },
+      {
+        name: "Kontakt",
+        type: "submenu",
+        submenu: [
+          { name: "Kontakt DVD", url: "/dvd/kontakt" },
+          { name: "Kontakt VZO", url: "/vzo/kontakt" },
+        ],
+      },
     ],
   },
   pages: {
@@ -78,6 +95,10 @@ export default {
         alt: "Članovi DVD-a Sikirevci mlaznicama pokazuju boje zastave RH",
         h1: "Najnovije iz DVD-a Sikirevci",
       },
+      contact: {
+        alt: "Kontaktirajte DVD Sikirevci",
+        h1: "Kontakt podaci za DVD Sikirevci",
+      },
     },
     vzo: {
       documents: {
@@ -88,10 +109,14 @@ export default {
         alt: "Članovi DVD-a Sikirevci na vježbi",
         h1: "Najnovije iz VZO Sikirevci",
       },
-    },
-    contact: {
-      alt: "",
-      h1: "Kontakt DVD i VZO Sikirevci",
+      contact: {
+        alt: "Kontaktirajte VZO Sikirevci",
+        h1: "Kontakt podaci za VZO Sikirevci",
+      },
+      about: {
+        alt: "O VZO Sikirevci",
+        h1: "O Vatrogasnoj zajednici općine Sikirevci",
+      },
     },
   },
 };

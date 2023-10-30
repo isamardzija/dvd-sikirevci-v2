@@ -1,0 +1,49 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import data from "../../lib/data";
+import image from "/src/assets/images/dvd-kontakt.png";
+import Icon from "astro-icon";
+---
+
+<PageLayout
+  metaDesc={data.meta.descriptions.contact.dvd}
+  title={data.meta.titles.contact.dvd}
+  image={image}
+  alt={data.pages.dvd.contact.alt}
+  h1={data.pages.dvd.contact.h1}
+>
+  <div
+    class="flex flex-col xl:flex-row gap-12 xl:gap-0 px-4 justify-between items-start py-12"
+  >
+    <div class="flex flex-col justify-center gap-4">
+      <Icon name="mdi:card-account-phone" class="w-14 xl:w-20 text-dark" />
+      <div>
+        <p class="text-2xl font-bold">Predsjednik</p>
+        <p class="text-xl">Đuro Radovanović</p>
+        <p class="text-xl">+385 91 144 4571</p>
+      </div>
+      <div>
+        <p class="text-2xl font-bold">Zapovjednik</p>
+        <p class="text-xl">Martin Živić</p>
+        <p class="text-xl">+385 91 144 4521</p>
+      </div>
+      <div>
+        <p class="text-2xl font-bold">Tajnik</p>
+        <p class="text-xl">Krunoslav Galović</p>
+        <p class="text-xl">+385 91 985 3828</p>
+      </div>
+    </div>
+    <div class="flex flex-col justify-center gap-2">
+      <Icon name="mdi:garage-variant" class="w-14 xl:w-20 text-dark" />
+      <p class="text-2xl font-bold">Adresa</p>
+      <p class="text-xl">Ul. Kardinala Alozija Stepinca 9</p>
+      <p class="text-xl">35224 Sikirevci</p>
+    </div>
+
+    <div class="flex flex-col justify-center gap-2">
+      <Icon name="mdi:at" class="w-14 xl:w-20 text-dark" />
+      <p class="text-2xl font-bold">E-mail adresa</p>
+      <p class="text-xl">dvdsikirevci2@gmail.com</p>
+    </div>
+  </div>
+</PageLayout>

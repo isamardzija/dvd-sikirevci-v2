@@ -6,6 +6,7 @@ import image from "/src/assets/images/dvd-hero.png";
 import imageDocs from "/src/assets/images/dvd-dokumentacija.png";
 import imageAbout from "/src/assets/images/o-nama.png";
 import imageHistory from "/src/assets/images/dvd-povijest.png";
+import vzoAbout from "/src/assets/images/vzo-o-nama.jpg";
 
 let fetchData = await fetch(
   "https://cms.dvdsikirevci.hr/api/posts?where[type][equals]=dvd"
@@ -22,7 +23,7 @@ let posts = await fetchData.json();
 >
   <div class="flex flex-col gap-4 py-12 px-4">
     <h2
-      class="text-dark text-3xl xl:text-4xl font-bold py-4 text-left border-b-2 border-b-brand"
+      class="text-dark text-2xl xl:text-4xl font-bold py-4 text-left border-b-2 border-b-brand"
     >
       Najnovije vijesti
     </h2>
@@ -30,7 +31,11 @@ let posts = await fetchData.json();
       {
         posts.docs.slice(0, 3).map((post) => (
           <article class="bg-gray-200">
-            <img src={post.image.sizes.tablet.url} alt="" />
+            <img
+              src={post.image.sizes.tablet.url}
+              alt=""
+              class="max-h-[200px] object-cover w-full"
+            />
             <h3 class="text-dark text-2xl xl:text-3xl text-left px-4 py-2">
               {post.title}
             </h3>
@@ -49,13 +54,13 @@ let posts = await fetchData.json();
     </div>
     <a
       href="/dvd/novosti"
-      class="text-white bg-brand rounded-xl text-3xl xl:text-4xl px-4 py-3 self-end"
+      class="text-white bg-brand rounded-xl text-xl font-bold xl:text-2xl px-4 py-3 self-end"
       >Pogledaj sve vijesti</a
     >
   </div>
   <div class="flex flex-col gap-4 py-12 px-4">
     <h2
-      class="text-dark text-3xl xl:text-4xl font-bold py-4 text-left border-b-2 border-b-brand"
+      class="text-dark text-2xl xl:text-4xl font-bold py-4 text-left border-b-2 border-b-brand"
     >
       O DVD Sikirevci
     </h2>
@@ -83,11 +88,50 @@ let posts = await fetchData.json();
         <Image src={imageDocs} alt="" />
 
         <a
-          href="/dvd/povijest"
+          href="/dvd/dokumenti  "
           class="font-bold underline text-2xl text-brand px-4">Dokumenti</a
         >
         <p class="px-4">
           Pogledajte ili preuzmite službenu dokumentaciju DVD-a Sikirevci.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-4 py-12 px-4">
+    <h2
+      class="text-dark text-2xl xl:text-4xl font-bold py-4 text-left border-b-2 border-b-brand"
+    >
+      O VZO Sikirevci
+    </h2>
+    <div class="grid xl:grid-cols-3 gap-4">
+      <div class="bg-gray-200 text-dark text-lg rounded-md flex flex-col gap-2">
+        <Image src={imageAbout} alt="" />
+        <a
+          href="/vzo/o-nama"
+          class="font-bold text-brand text-2xl underline px-4">O nama</a
+        >
+        <p class="px-4">
+          Informacije o Vatrogasnoj zajednici općine Sikirevci.
+        </p>
+      </div>
+      <div class="bg-gray-200 text-dark text-lg rounded-md flex flex-col gap-2">
+        <Image src={imageHistory} alt="" />
+
+        <a
+          href="/vzo/novosti"
+          class="font-bold underline text-brand text-2xl px-4">Novosti</a
+        >
+        <p class="px-4">Najnovije vijesti vezane za VZO Sikirevci.</p>
+      </div>
+      <div class="bg-gray-200 text-dark text-lg rounded-md flex flex-col gap-2">
+        <Image src={imageDocs} alt="" />
+
+        <a
+          href="/vzo/dokumenti  "
+          class="font-bold underline text-2xl text-brand px-4">Dokumenti</a
+        >
+        <p class="px-4">
+          Pogledajte ili preuzmite službenu dokumentaciju VZO Sikirevci.
         </p>
       </div>
     </div>

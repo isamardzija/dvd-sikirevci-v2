@@ -4,18 +4,26 @@ import data from "../../../lib/data";
 import image from "/src/assets/images/dvd-novosti.png";
 
 export async function getStaticPaths() {
-	let data = await fetch('https://cms.dvdsikirevci.hr/api/posts?where[type][equals]=vzo')
-	const posts = await data.json()
+  let data = await fetch(
+    "https://cms.dvdsikirevci.hr/api/posts?where[type][equals]=vzo"
+  );
+  const posts = await data.json();
 
-	return posts.docs.map((post: any) => {
-		return {
-			params: { slug: post.slug },
-			props: { title: post.title, content: post.content, src: post.image.url, date: post.updatedAt }
-		}
-	})
+  return posts.docs.map((post: any) => {
+    return {
+      params: { slug: post.slug },
+      props: {
+        title: post.title,
+        content: post.content,
+        src: post.image.url,
+        date: post.updatedAt,
+        attachment: post.attachment,
+      },
+    };
+  });
 }
 
-const { title, content, src, date } = Astro.props
+const { title, content, src, date, attachment } = Astro.props;
 ---
 
 <PostLayout
@@ -25,10 +33,30 @@ const { title, content, src, date } = Astro.props
   alt={data.pages.dvd.news.alt}
   h1={title}
 >
-
-<article class="p-4 py-8 text-xl xl:text-2xl text-dark max-w-[60ch] mx-auto bg-gray-100">
-  <p class="text-sm px-4 py-4 xl:px-12">Objavljeno {new Date(date).toLocaleDateString('hr-HR')}</p>
-  <p class="px-4 xl:px-12">{content}</p>
-</article>
-
+  <article
+    class="p-4 py-8 text-xl xl:text-2xl text-dark max-w-[60ch] mx-auto bg-gray-100"
+  >
+    <p class="text-sm px-4 py-4 xl:px-12">
+      Objavljeno {new Date(date).toLocaleDateString("hr-HR")}
+    </p>
+    <p class="px-4 xl:px-12">{content}</p>
+    {
+      attachment != null && (
+        <div class="p-4 my-8 flex flex-col border border-gray-400 rounded-sm">
+          <a
+            class="text-brand font-bold text-lg underline"
+            target="_blank"
+            href={attachment.url}
+            id-year={attachment.year}
+          >
+            {attachment.filename}
+          </a>
+          <span class="text-lg">
+            Datum objave:{" "}
+            {new Date(attachment.updatedAt).toLocaleDateString("hr-HR")}
+          </span>
+        </div>
+      )
+    }
+  </article>
 </PostLayout>

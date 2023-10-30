@@ -1,0 +1,21 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import data from "../../lib/data";
+import image from "/src/assets/images/vzo-o-nama.jpg";
+---
+
+<PageLayout
+  metaDesc={data.meta.descriptions.vzo.about}
+  title={data.meta.titles.vzo.about}
+  image={image}
+  alt={data.pages.vzo.about.alt}
+  h1={data.pages.vzo.about.h1}
+>
+  <article class="px-4 py-8 space-y-12">
+    <p class="text-xl xl:text-2xl text-dark py-4">
+      Vatrogasna zajednica općine Sikirevci osnovana je 1998. godine. U sastavu
+      VZO-a nalaze se Dobrovoljno vatrogasno društvo Sikirevci i Dobrovoljno
+      vatrogasno društvo Jaruge.
+    </p>
+  </article>
+</PageLayout>

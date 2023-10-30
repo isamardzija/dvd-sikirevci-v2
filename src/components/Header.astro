@@ -7,7 +7,9 @@ const menuItems = data.header.menu;
 ---
 
 <header class="flex justify-between p-4 w-full relative">
-  <Image src={logo} alt="" class="w-12 xl:w-20" />
+  <a href="/">
+    <Image src={logo} alt="" class="w-12 xl:w-20" />
+  </a>
   <Icon id="menuOpen" name="mdi:menu" class="lg:hidden w-8 cursor-pointer" />
   <Icon
     id="menuClose"
