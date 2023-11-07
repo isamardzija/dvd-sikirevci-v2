@@ -32,7 +32,7 @@ let posts = await fetchData.json();
         posts.docs.slice(0, 3).map((post) => (
           <article class="bg-gray-200">
             <img
-              src={post.image.sizes.tablet.url}
+              src={post.image.url}
               alt=""
               class="max-h-[200px] object-cover w-full"
             />
